@@ -2,6 +2,7 @@ package org.king.test.mkovac;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,7 @@ public class ProductService implements IProductService {
   }
 
   @Override
+  @Cacheable(value = "filterCache", key = "#category + '-' + #price")
   public List<Product> getProductsByFilter(String category, Float price) {
     String uri = this.uri;
     RestTemplate restTemplate = new RestTemplate();
@@ -64,6 +66,7 @@ public class ProductService implements IProductService {
   }
 
   @Override
+  @Cacheable(value = "searchCache", key = "#name")
   public List<Product> getProductsByName(String name) {
     String uri = this.uri;
     RestTemplate restTemplate = new RestTemplate();
