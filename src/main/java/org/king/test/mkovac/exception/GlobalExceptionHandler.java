@@ -1,4 +1,4 @@
-package org.king.test.mkovac;
+package org.king.test.mkovac.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

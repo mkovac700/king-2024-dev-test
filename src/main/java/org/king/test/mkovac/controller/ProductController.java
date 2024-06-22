@@ -1,6 +1,8 @@
-package org.king.test.mkovac;
+package org.king.test.mkovac.controller;
 
 import java.util.List;
+import org.king.test.mkovac.entity.Product;
+import org.king.test.mkovac.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

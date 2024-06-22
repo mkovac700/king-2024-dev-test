@@ -1,4 +1,4 @@
-package org.king.test.mkovac;
+package org.king.test.mkovac.config;
 
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;

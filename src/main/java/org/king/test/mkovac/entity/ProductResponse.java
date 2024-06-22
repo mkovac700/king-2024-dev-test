@@ -1,4 +1,4 @@
-package org.king.test.mkovac;
+package org.king.test.mkovac.entity;
 
 import java.util.List;
 

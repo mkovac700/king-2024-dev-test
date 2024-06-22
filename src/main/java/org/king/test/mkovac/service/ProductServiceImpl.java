@@ -1,7 +1,12 @@
-package org.king.test.mkovac;
+package org.king.test.mkovac.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.king.test.mkovac.entity.Product;
+import org.king.test.mkovac.entity.ProductResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -10,20 +15,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class ProductService implements IProductService {
+public class ProductServiceImpl implements ProductService {
 
-  private String uri = "https://dummyjson.com/products/";
+  @Value("${products.rest.service.uri}")
+  private String baseUri;
+
+  @Value("${pagination.default.limit}")
+  private int defaultLimit;
+
+  @Autowired
+  private RestTemplate restTemplate;
 
   @Override
   public List<Product> getAllProducts() {
-
-    String uri = this.uri;
-    RestTemplate restTemplate = new RestTemplate();
-
-    ResponseEntity<ProductResponse> response = restTemplate.exchange(uri, HttpMethod.GET, null,
-        new ParameterizedTypeReference<ProductResponse>() {});
-
-    List<Product> products = response.getBody().getProducts();
+    List<Product> products = fetchAllProducts();
 
     for (Product p : products)
       p.setDescription(p.getDescription().substring(0, Math.min(p.getDescription().length(), 100)));
@@ -33,8 +38,7 @@ public class ProductService implements IProductService {
 
   @Override
   public Product getProductById(int id) {
-    String uri = this.uri + id;
-    RestTemplate restTemplate = new RestTemplate();
+    String uri = this.baseUri + id;
     Product product = restTemplate.getForObject(uri, Product.class);
     product.setDescription(
         product.getDescription().substring(0, Math.min(product.getDescription().length(), 100)));
@@ -44,8 +48,7 @@ public class ProductService implements IProductService {
   @Override
   @Cacheable(value = "filterCache", key = "#category + '-' + #price")
   public List<Product> getProductsByFilter(String category, Float price) {
-    String uri = this.uri;
-    RestTemplate restTemplate = new RestTemplate();
+    String uri = this.baseUri;
 
     if (category != null)
       uri += "/category/" + category;
@@ -68,13 +71,8 @@ public class ProductService implements IProductService {
   @Override
   @Cacheable(value = "searchCache", key = "#name")
   public List<Product> getProductsByName(String name) {
-    String uri = this.uri;
-    RestTemplate restTemplate = new RestTemplate();
 
-    ResponseEntity<ProductResponse> response = restTemplate.exchange(uri, HttpMethod.GET, null,
-        new ParameterizedTypeReference<ProductResponse>() {});
-
-    List<Product> products = response.getBody().getProducts();
+    List<Product> products = fetchAllProducts();
 
     for (Product p : products)
       p.setDescription(p.getDescription().substring(0, Math.min(p.getDescription().length(), 100)));
@@ -83,6 +81,31 @@ public class ProductService implements IProductService {
       products =
           products.stream().filter(p -> p.getTitle().toLowerCase().contains(name.toLowerCase()))
               .collect(Collectors.toList());
+    }
+
+    return products;
+  }
+
+  private List<Product> fetchAllProducts() {
+    int skip = 0;
+
+    List<Product> products = new ArrayList<>();
+
+    while (true) {
+      String finalUri = this.baseUri + "?skip=" + skip + "&limit=" + defaultLimit;
+
+      ResponseEntity<ProductResponse> response = restTemplate.exchange(finalUri, HttpMethod.GET,
+          null, new ParameterizedTypeReference<ProductResponse>() {});
+
+      List<Product> tmp = response.getBody().getProducts();
+
+      if (tmp.isEmpty() || tmp == null)
+        break;
+
+      products.addAll(tmp);
+
+      skip += defaultLimit;
+
     }
 
     return products;
