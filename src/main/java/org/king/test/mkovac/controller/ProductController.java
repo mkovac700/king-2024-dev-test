@@ -26,8 +26,9 @@ public class ProductController {
   }
 
   @GetMapping
-  public List<Product> getAllProducts() {
-    return productService.getAllProducts();
+  public List<Product> getAllProducts(@RequestParam(required = false) Integer page,
+      @RequestParam(required = false) Integer size) {
+    return productService.getAllProducts(page, size);
   }
 
   @GetMapping("/{id}")
@@ -37,11 +38,12 @@ public class ProductController {
 
   @GetMapping("/filter")
   public List<Product> getProductsByFilter(@RequestParam(required = false) String category,
-      @RequestParam(required = false) Float price) {
+      @RequestParam(required = false) Float priceMin, Float priceMax) {
     logger.info("Category: " + category);
-    logger.info("Price: " + price);
+    logger.info("Price min: " + priceMin);
+    logger.info("Price max: " + priceMax);
 
-    return productService.getProductsByFilter(category, price);
+    return productService.getProductsByFilter(category, priceMin, priceMax);
   }
 
   @GetMapping("/search")

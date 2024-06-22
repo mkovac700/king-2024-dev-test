@@ -27,8 +27,13 @@ public class ProductServiceImpl implements ProductService {
   private RestTemplate restTemplate;
 
   @Override
-  public List<Product> getAllProducts() {
-    List<Product> products = fetchAllProducts();
+  public List<Product> getAllProducts(Integer page, Integer size) {
+    List<Product> products = null;
+
+    if (page == null && size == null)
+      products = fetchAllProducts();
+    else
+      products = fetchAllProducts(page, size);
 
     for (Product p : products)
       p.setDescription(p.getDescription().substring(0, Math.min(p.getDescription().length(), 100)));
@@ -46,8 +51,8 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  @Cacheable(value = "filterCache", key = "#category + '-' + #price")
-  public List<Product> getProductsByFilter(String category, Float price) {
+  @Cacheable(value = "filterCache", key = "#category + '-' + #priceMin + '-' +#priceMax")
+  public List<Product> getProductsByFilter(String category, Float priceMin, Float priceMax) {
     String uri = this.baseUri;
 
     if (category != null)
@@ -61,8 +66,9 @@ public class ProductServiceImpl implements ProductService {
     for (Product p : products)
       p.setDescription(p.getDescription().substring(0, Math.min(p.getDescription().length(), 100)));
 
-    if (price != null) {
-      products = products.stream().filter(p -> p.getPrice() == price).collect(Collectors.toList());
+    if (priceMin != null && priceMax != null) {
+      products = products.stream().filter(p -> p.getPrice() >= priceMin && p.getPrice() <= priceMax)
+          .collect(Collectors.toList());
     }
 
     return products;
@@ -82,6 +88,20 @@ public class ProductServiceImpl implements ProductService {
           products.stream().filter(p -> p.getTitle().toLowerCase().contains(name.toLowerCase()))
               .collect(Collectors.toList());
     }
+
+    return products;
+  }
+
+  private List<Product> fetchAllProducts(Integer page, Integer size) {
+    int skip = page * size;
+    int limit = size;
+
+    String finalUri = this.baseUri + "?skip=" + skip + "&limit=" + limit;
+
+    ResponseEntity<ProductResponse> response = restTemplate.exchange(finalUri, HttpMethod.GET, null,
+        new ParameterizedTypeReference<ProductResponse>() {});
+
+    List<Product> products = response.getBody().getProducts();
 
     return products;
   }
