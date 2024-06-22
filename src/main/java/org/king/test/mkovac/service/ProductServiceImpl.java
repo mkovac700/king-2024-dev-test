@@ -56,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
     String uri = this.baseUri;
 
     if (category != null)
-      uri += "/category/" + category;
+      uri += "/category/" + category.toLowerCase();
 
     ResponseEntity<ProductResponse> response = restTemplate.exchange(uri, HttpMethod.GET, null,
         new ParameterizedTypeReference<ProductResponse>() {});
