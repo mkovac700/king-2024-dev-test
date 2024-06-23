@@ -9,10 +9,9 @@
     Middleware REST API s naprednim mogućnostima pretraživanja i filtriranja
   </p>
   <!-- TABLE OF CONTENTS -->
-  <a href="#-opis-projekta">Opis zadatka</a> • 
+  <a href="#-opis-zadatka">Opis zadatka</a> • 
   <a href="#-konfiguracija">Konfiguracija</a> • 
-  <a href="#-upotreba">Upotreba</a> • 
-  <a href="#-korišteni-alati">Korišteni alati</a>
+  <a href="#-upotreba">Upotreba</a> 
 </div>
 
 <br>
@@ -118,7 +117,7 @@ Za pokretanje rješenja bit će vam potrebno sljedeće:
     ```
 
     <div align="center">
-    <a href="./assets/Screenshot_1.png"><img alt="king" src="./assets/Screenshot_1.png"></a>
+    <a href="https://raw.githubusercontent.com/mkovac700/king-2024-dev-test/docs/assets/Screenshot_1.png"><img alt="king" src="https://raw.githubusercontent.com/mkovac700/king-2024-dev-test/docs/assets/Screenshot_1.png"></a>
     </div>
 
 * Endpoint za dohvaćanje jednog proizvoda (prema ID):
@@ -129,7 +128,7 @@ Za pokretanje rješenja bit će vam potrebno sljedeće:
     ```
 
     <div align="center">
-    <a href="./assets/Screenshot_2.png"><img alt="king" src="./assets/Screenshot_2.png"></a>
+    <a href="https://raw.githubusercontent.com/mkovac700/king-2024-dev-test/docs/assets/Screenshot_2.png"><img alt="king" src="https://raw.githubusercontent.com/mkovac700/king-2024-dev-test/docs/assets/Screenshot_2.png"></a>
     </div>
 
 * Endpoint za filtriranje po kategoriji i cijeni:
@@ -140,7 +139,7 @@ Za pokretanje rješenja bit će vam potrebno sljedeće:
     ```
 
     <div align="center">
-    <a href="./assets/Screenshot_3.png"><img alt="king" src="./assets/Screenshot_3.png"></a>
+    <a href="https://raw.githubusercontent.com/mkovac700/king-2024-dev-test/docs/assets/Screenshot_3.png"><img alt="king" src="https://raw.githubusercontent.com/mkovac700/king-2024-dev-test/docs/assets/Screenshot_3.png"></a>
     </div>
 
 * Endpoint za pretraživanje proizvoda po nazivu:
@@ -151,7 +150,7 @@ Za pokretanje rješenja bit će vam potrebno sljedeće:
     ```
 
     <div align="center">
-    <a href="./assets/Screenshot_4.png"><img alt="king" src="./assets/Screenshot_4.png"></a>
+    <a href="https://raw.githubusercontent.com/mkovac700/king-2024-dev-test/docs/assets/Screenshot_4.png"><img alt="king" src="https://raw.githubusercontent.com/mkovac700/king-2024-dev-test/docs/assets/Screenshot_4.png"></a>
     </div>
 
 <br/>
