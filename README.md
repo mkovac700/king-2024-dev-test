@@ -78,6 +78,8 @@ Za pokretanje rješenja bit će vam potrebno sljedeće:
 
 ### Priprema
 
+  Eclipse:
+
   * Instalirati potrebne Eclipse dodatke (ako se koristi Eclipse)
 
   * Klonirajte ovaj repozitorij:
@@ -95,6 +97,24 @@ Za pokretanje rješenja bit će vam potrebno sljedeće:
     * `Run As > Spring Boot App`
 
     * Ako je sve bilo u redu, aplikacija bi trebala biti dostupna na `localhost:8080/api/products`
+
+  Komandna linija:
+
+  * Izvršiti kompiliranje projekta:
+
+    * Smjestiti se na korijenski direktorij `king-2024-dev-test`
+
+    * Izvršiti
+
+      ```bash
+      mvn clean package
+      ```
+
+    * Rješenje se može pokrenuti koristeći:
+
+      ```bash
+      java -jar target/king-2024-dev-test-1.0.0.jar
+      ```
 
 <p align="right">(<a href="#readme-top">povratak na vrh</a>)</p>
 
@@ -161,6 +181,10 @@ Za pokretanje rješenja bit će vam potrebno sljedeće:
 
     * `src/test/java/org.king.test.mkovac/`
     * Desni klik na `ProductControllerUnitTest.java` i potom `Run As > JUnit Test` za izvršavanje testova
+
+    <div align="center">
+    <a href="https://raw.githubusercontent.com/mkovac700/king-2024-dev-test/docs/assets/Screenshot_5.png"><img alt="king" src="https://raw.githubusercontent.com/mkovac700/king-2024-dev-test/docs/assets/Screenshot_5.png"></a>
+    </div>
 
     
 
