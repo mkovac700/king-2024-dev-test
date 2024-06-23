@@ -182,11 +182,11 @@ Za pokretanje rješenja bit će vam potrebno sljedeće:
     * `src/test/java/org.king.test.mkovac/`
     * Desni klik na `ProductControllerUnitTest.java` i potom `Run As > JUnit Test` za izvršavanje testova
 
+    <br/>
+
     <div align="center">
     <a href="https://raw.githubusercontent.com/mkovac700/king-2024-dev-test/docs/assets/Screenshot_5.png"><img alt="king" src="https://raw.githubusercontent.com/mkovac700/king-2024-dev-test/docs/assets/Screenshot_5.png"></a>
     </div>
-
-    
 
 <p align="right">(<a href="#readme-top">povratak na vrh</a>)</p>
 
